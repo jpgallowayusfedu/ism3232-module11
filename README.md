@@ -1,0 +1,3 @@
+## Mini-Project: Coffee Shop FAQ Assistant
+
+This project creates "Amara", a mock FAQ assistant for a fictional coffee shop that answers customer questions about store hours, location, and menu options. Amara uses simple keyword rules and a separate FAQ tool instead of real artificial intelligence or a live business database. Refund requests and complaints are passed to a human employee because they may require individual review and decisions. The assistant does not connect to a real payment system or store actual customer information. If this projec used real customer data, an error in storing or handling that information could expose private customer details.
