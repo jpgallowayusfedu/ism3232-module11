@@ -1,3 +1,7 @@
 ## Mini-Project: Coffee Shop FAQ Assistant
 
 This project creates "Amara", a mock FAQ assistant for a fictional coffee shop that answers customer questions about store hours, location, and menu options. Amara uses simple keyword rules and a separate FAQ tool instead of real artificial intelligence or a live business database. Refund requests and complaints are passed to a human employee because they may require individual review and decisions. The assistant does not connect to a real payment system or store actual customer information. If this projec used real customer data, an error in storing or handling that information could expose private customer details.
+
+## Weel 11: Adding a Local AI Model
+
+This lab expanded my coffee shop assistant by adding an AI model using Ollama. The assistant successfully used its model to respond to general shop questions that were not covered by the FAQ tool. When answering a question on parking validation, it demonstrated the model could not always provide a verified answer. The model provides additional conversational support, but it does not replace the tools or busienss rules responsible for important business information. I kept shop hours, location, menu information, and refund requests in the FAQ tool for consistency.

@@ -1,15 +1,32 @@
+from mock_model import MockModel
 from my_assistant import CoffeeAssistant
 from my_tool import FAQTool
 
 
-def make_assistant():
-    """Build a fresh coffee shop assistant for each test."""
+class SilentModel:
+    """A model that does not provide an answer."""
+
+    def reply(self, instructions, history):
+        return None
+
+
+def make_assistant(model=None):
+    """Build a coffee shop assistant with an FAQ tool and mock model."""
+    if model is None:
+        model = MockModel()
+
     faqs = {
-        "hours": "We are open Monday through Friday from 7:00 am to 6:00 pm.",
+        "hours": "We are open on Monday through Friday from 7:00 am to 6:00 pm.",
         "location": "We are located at 20 Times Square, New York, NY 10036.",
-        "menu": "We offer coffee, tea, smoothies, pastries, and breakfast sandwiches",
+        "menu": "Our menu includes coffee, tea, smoothies, pastries, and breakfast sandwiches.",
     }
-    return CoffeeAssistant("Amara", FAQTool(faqs))
+
+    instructions = """You are Amara, a friendly coffee shop assistant.
+    The coffee shop serves coffee, tea, smoothies, pastries, and breakfast sandwiches.
+    If you do not know an answer, say you do not know and offer human assistance.
+    Answer in one short sentence."""
+
+    return CoffeeAssistant(FAQTool(faqs), instructions, model)
 
 
 def test_assistant_greets_user():
@@ -48,3 +65,11 @@ def test_assistant_records_conversation():
     assert len(bot.history) == 2
     assert bot.history[0]["role"] == "user"
     assert bot.history[1]["role"] == "assistant"
+
+
+def test_assistant_returns_safe_reply_when_model_has_no_answer():
+    bot = make_assistant(SilentModel())
+
+    reply = bot.respond("Do you validate parking?")
+
+    assert "try again" in reply
